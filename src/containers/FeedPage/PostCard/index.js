@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowUpward from "@material-ui/icons/ArrowUpward"
 import ArrowDownward from "@material-ui/icons/ArrowDownward"
 import { connect } from "react-redux"
+import styled from "styled-components"
 
 // const styles = theme => ({
 //   card: {
@@ -35,32 +35,42 @@ import { connect } from "react-redux"
 //   },
 // });
 
+const PostCardContainer = styled.div`
+    margin: 10px;
+`
+
+
 class PostCard extends React.Component {
 
   render() {
 
     return (
-      <Card>
-        <CardHeader title="andressa95">
-        </CardHeader>
+        <PostCardContainer>
+            <Card>
         <CardContent>
+            <Typography variant="h5" >
+                {this.props.post.username}
+            </Typography>
+            <hr />
           <Typography component="p">
-            This is a test post.
+            {this.props.post.postText}
           </Typography>
         </CardContent>
+
         <CardActions>
           <IconButton aria-label="Upvote">
-            <ArrowUpward /> 0
+            <ArrowUpward /> {this.props.post.upvotes}
           </IconButton>
           <IconButton aria-label="Downvote">
-            <ArrowDownward /> 0
+            <ArrowDownward /> {this.props.post.downvotes}
           </IconButton>
           <Typography component="p" color="primary">
-              0 comentários
+          {this.props.post.comments} comentários
           </Typography>
         
         </CardActions>
       </Card>
+        </PostCardContainer>
     );
   }
 }

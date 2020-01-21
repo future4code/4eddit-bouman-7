@@ -2,13 +2,12 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
-import FeedPage from "../FeedPage"
+import SignUpPage from "../SignUpPage";
+import FeedPage from "../FeedPage";
 
-
-
-
-const routes = {
+export const routes = {
   root: "/",
+  signUpPage: "/signup",
   feedPage: "/feed"
 };
 
@@ -16,8 +15,9 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.root} component={LoginPage} exact/>
-        <Route path={routes.feedPage} component={FeedPage} exact/>
+        <Route exact path={routes.root} component={LoginPage} />
+        <Route exact path={routes.signUpPage} component={SignUpPage} />
+        <Route exact path={routes.feedPage} component={FeedPage} />
       </Switch>
     </ConnectedRouter>
   );

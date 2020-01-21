@@ -42,6 +42,19 @@ class SignUpPage extends Component {
     };
   }
 
+  //Não entendo muito bem para o que serve isso, mas sei que é necessário
+  handleFieldChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleLoginButton = () => {
+    const { username, email, password } = this.state;
+
+    this.props.login(email, password)
+  }
+
   render() {
     //Para evitar escrever this.state várias vezes
     const { username, email, password } = this.state;
@@ -55,7 +68,7 @@ class SignUpPage extends Component {
         <LoginContainer>
 
           <TextField
-            //onChange={}
+            onChange={this.handleFieldChange}
             name="username"
             type="username"
             label="Username"
@@ -63,7 +76,7 @@ class SignUpPage extends Component {
           />
 
           <TextField
-            //onChange={}
+            onChange={this.handleFieldChange}
             name="email"
             type="email"
             label="E-mail"
@@ -71,7 +84,7 @@ class SignUpPage extends Component {
           />
 
           <TextField
-            //onChange={}
+            onChange={this.handleFieldChange}
             name="password"
             type="password"
             label="Password"

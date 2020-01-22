@@ -9,34 +9,9 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-// const styles = theme => ({
-//   card: {
-//     maxWidth: 400,
-//   },
-//   media: {
-//     height: 0,
-//     paddingTop: '56.25%', // 16:9
-//   },
-//   actions: {
-//     display: 'flex',
-//   },
-//   expand: {
-//     transform: 'rotate(0deg)',
-//     marginLeft: 'auto',
-//     transition: theme.transitions.create('transform', {
-//       duration: theme.transitions.duration.shortest,
-//     }),
-//   },
-//   expandOpen: {
-//     transform: 'rotate(180deg)',
-//   },
-//   avatar: {
-//     backgroundColor: red[500],
-//   },
-// });
 
 const PostCardContainer = styled.div`
-    margin: 10px;
+  margin: 10px;
 `
 
 
@@ -49,26 +24,32 @@ class PostCard extends React.Component {
             <Card>
         <CardContent>
             <Typography variant="h5" >
+                {this.props.post.title}
+            </Typography>
+            <Typography variant="h6" color="secondary">
                 {this.props.post.username}
             </Typography>
             <hr />
           <Typography component="p">
-            {this.props.post.postText}
+            {this.props.post.text}
           </Typography>
         </CardContent>
 
         <CardActions>
-          <IconButton aria-label="Upvote">
-            <ArrowUpward /> {this.props.post.upvotes}
+          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : "secondary"}> 
+            <ArrowUpward />
+          </IconButton>
+          <IconButton disabled>
+            {this.props.post.votesCount}
           </IconButton>
           <IconButton aria-label="Downvote">
-            <ArrowDownward /> {this.props.post.downvotes}
+            <ArrowDownward />
           </IconButton>
           <Typography component="p" color="primary">
-          {this.props.post.comments} comentários
+          {this.props.post.commentsNumber} comentário(s)
           </Typography>
         
-        </CardActions>
+        </CardActions>  
       </Card>
         </PostCardContainer>
     );

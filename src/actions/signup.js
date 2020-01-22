@@ -19,7 +19,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
         window.localStorage.setItem("token", response.data.token);
 
-        dispatch(push(routes.root))
+        dispatch(push(routes.feedPage))
 
     } catch (error) {
         window.alert("Não foi possível realizar o cadastro")

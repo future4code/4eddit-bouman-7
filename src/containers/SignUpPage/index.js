@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signUp } from "../../actions/signup"
+import { signUp } from "../../actions/signup";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -25,9 +27,18 @@ const LoginContainer = styled.div`
   display: grid;
 `;
 
+//Container para buttons
+const ButtonContainer = styled.div`
+  width: 250px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 //Para acertar tamanho do logo
 const Logo = styled.img`
-  width: 220px;
+  width: 230px;
 `;
 
 //Setando os estados
@@ -88,9 +99,15 @@ class SignUpPage extends Component {
             label="Senha"
             value={password}
           />
-          {/* Botão que retorna pra página de login por enquanto*/}
-          <Button onClick= {this.handleSignUpButton}>Cadastrar</Button>
+          <ButtonContainer>
 
+            {/* Botão que envia as infos do Textfield*/}
+            <Button onClick= {this.handleSignUpButton}>Cadastrar</Button>
+
+            {/* Botão que retorna pra página de login*/}
+            <Button onClick= {this.props.voltar}>Voltar</Button>
+
+          </ButtonContainer>
         </LoginContainer>
 
       </MainContainer>
@@ -100,7 +117,8 @@ class SignUpPage extends Component {
 
 //Função para dar dispatch
 const mapDispatchToProps = (dispatch) => ({
-        signUp: (username, email, password) => dispatch(signUp(username, email, password))
+        signUp: (username, email, password) => dispatch(signUp(username, email, password)),
+        voltar: () => dispatch(push(routes.root)),
     });
   
  //Deixei o primeiro null porque não temos mapStateToProps até agora 

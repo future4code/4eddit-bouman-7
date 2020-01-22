@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../../actions/login";
+import { push } from "connected-react-router";
+import { routes } from "../Router";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import SignUpButton from "@material-ui/core/Button";
 import styled from "styled-components";
 
 const LoginForm = styled.form`
@@ -62,13 +65,18 @@ class LoginPage extends Component {
         value={password}
         />
         <Button onClick={this.handleLoginButton}>Login</Button>
+        <SignUpButton onClick={this.props.GoToSignUp}>Cadastrar</SignUpButton>
       </LoginForm>
+      
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) => dispatch(login(email, password))
-})
+function mapDispatchToProps(dispatch) {
+  return {
+  login: (email, password) => dispatch(login(email, password)),
+  GoToSignUp: () => dispatch(push(routes.signUpPage))
+  }
+}
 
 export default connect(null, mapDispatchToProps)(LoginPage);

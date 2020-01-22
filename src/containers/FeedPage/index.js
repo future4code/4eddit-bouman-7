@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import PostCard from "../FeedPage/PostCard"
-import Routes from "connected-react-router"
-import { connect } from "react-redux"
-import styled from "styled-components"
+import PostCard from "../FeedPage/PostCard";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
 const posts = [
     {
@@ -39,6 +40,15 @@ const PostsContainer = styled.div`
 `
 
 class FeedPage extends Component {
+
+  componentDidMount() {
+    const token = window.localStorage.getItem('token')
+
+    if (token === null) {
+      this.props.GoToLogin()
+    }
+  }
+
   render() {
     return (
       <PostsContainer>
@@ -48,5 +58,11 @@ class FeedPage extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    GoToLogin: () => dispatch(push(routes.root))
+  }
+}
 
-export default connect()(FeedPage);
+
+export default connect(null, mapDispatchToProps)(FeedPage);

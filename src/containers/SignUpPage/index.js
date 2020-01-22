@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../Router";
+import { signUp } from "../../actions/signup"
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -38,8 +37,20 @@ class SignUpPage extends Component {
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
     };
+  }
+
+//Não sei pra que serve, mas sei que tem que fazer os handles
+  handleSignUpTextField = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSignUpButton = () => {
+    const { username, email, password } = this.state;
+    this.props.signUp(username, email, password)
   }
 
   render() {
@@ -55,15 +66,15 @@ class SignUpPage extends Component {
         <LoginContainer>
 
           <TextField
-            //onChange={}
+            onChange={this.handleSignUpTextField}
             name="username"
             type="username"
-            label="Username"
+            label="Nome de Usuário"
             value={username}
           />
 
           <TextField
-            //onChange={}
+            onChange={this.handleSignUpTextField}
             name="email"
             type="email"
             label="E-mail"
@@ -71,14 +82,14 @@ class SignUpPage extends Component {
           />
 
           <TextField
-            //onChange={}
+            onChange={this.handleSignUpTextField}
             name="password"
             type="password"
-            label="Password"
+            label="Senha"
             value={password}
           />
           {/* Botão que retorna pra página de login por enquanto*/}
-          <Button onClick= {this.props.login}>Cadastrar</Button>
+          <Button onClick= {this.handleSignUpButton}>Cadastrar</Button>
 
         </LoginContainer>
 
@@ -88,11 +99,9 @@ class SignUpPage extends Component {
 }
 
 //Função para dar dispatch
-function mapDispatchToProps(dispatch) {
-    return {
-        login: () => dispatch(push(routes.root)),
-    };
-  }
+const mapDispatchToProps = (dispatch) => ({
+        signUp: (username, email, password) => dispatch(signUp(username, email, password))
+    });
   
  //Deixei o primeiro null porque não temos mapStateToProps até agora 
   export default connect(

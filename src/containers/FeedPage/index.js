@@ -4,6 +4,7 @@ import Routes from "connected-react-router"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import { getPosts } from "../../actions/getPosts";
+import { push } from "connected-react-router";
 
 
 const PostsContainer = styled.div`
@@ -20,9 +21,12 @@ class FeedPage extends Component {
 
   componentDidMount() {
     this.props.fetchPosts()
-
+    const token = window.localStorage.getItem('token')
+    if (token === null) {
+      this.props.GoToLogin()
+    }
   }
-  
+
   render() {
     return (
       <PostsContainer>
@@ -38,6 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(getPosts())
+  GoToLogin: () => dispatch(push(routes.root))
 })
 
 

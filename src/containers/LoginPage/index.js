@@ -64,7 +64,7 @@ class LoginPage extends Component {
       <Logo src={logo} alt="4eddit - logo" />
 
       <LoginForm>
-        <Title>4eddit - Login</Title>
+
         <TextField
         onChange={this.handleFieldChange}
         name="email"

@@ -36,7 +36,8 @@ class PostCard extends React.Component {
         </CardContent>
 
         <CardActions>
-          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : "secondary"}> 
+          {/* <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : "secondary"}> */}
+          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection === 1 ? "primary" : "secondary"}>
             <ArrowUpward />
           </IconButton>
           <IconButton disabled>

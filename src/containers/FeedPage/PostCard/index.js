@@ -24,26 +24,32 @@ class PostCard extends React.Component {
             <Card>
         <CardContent>
             <Typography variant="h5" >
+                {this.props.post.title}
+            </Typography>
+            <Typography variant="h6" color="secondary">
                 {this.props.post.username}
             </Typography>
             <hr />
           <Typography component="p">
-            {this.props.post.postText}
+            {this.props.post.text}
           </Typography>
         </CardContent>
 
         <CardActions>
-          <IconButton aria-label="Upvote">
-            <ArrowUpward /> {this.props.post.upvotes}
+          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : "secondary"}> 
+            <ArrowUpward />
+          </IconButton>
+          <IconButton disabled>
+            {this.props.post.votesCount}
           </IconButton>
           <IconButton aria-label="Downvote">
-            <ArrowDownward /> {this.props.post.downvotes}
+            <ArrowDownward />
           </IconButton>
           <Typography component="p" color="primary">
-          {this.props.post.comments} comentários
+          {this.props.post.commentsNumber} comentário(s)
           </Typography>
         
-        </CardActions>
+        </CardActions>  
       </Card>
         </PostCardContainer>
     );

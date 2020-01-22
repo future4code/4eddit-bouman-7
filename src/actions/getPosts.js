@@ -15,7 +15,8 @@ export const getPosts = () => async (dispatch) => {
         const response = await axios.get(`${baseURL}/posts`, {headers: {'Content-Type': 'application/json', 
         'auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlphR1dLRWRjZXlaWjlORkxPUGgxIiwiZW1haWwiOiJwZWRyby5kYXJ2YXNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJkYXJ2YXMiLCJpYXQiOjE1NzM1Nzk5MTd9.sKiIIRgiQm2qesnrNmFujNlXF02ytx-IvLKnNFHqXgA'}
     })
-        console.log(response.posts)
+        console.log(response.data.posts)
+        dispatch(setPosts(response.data.posts))
         
     } catch(error) {
         console.log(error)

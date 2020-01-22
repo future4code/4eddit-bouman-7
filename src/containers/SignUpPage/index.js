@@ -42,6 +42,23 @@ class SignUpPage extends Component {
     };
   }
 
+<<<<<<< Updated upstream
+=======
+  //Não entendo muito bem para o que serve isso, mas sei que é necessário. Daqui...
+  handleFieldChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleLoginButton = () => {
+    const { username, email, password } = this.state;
+
+    this.props.login(email, password)
+  }
+// ...Até aqui, preciso modificar
+
+>>>>>>> Stashed changes
   render() {
     //Para evitar escrever this.state várias vezes
     const { username, email, password } = this.state;
@@ -58,7 +75,7 @@ class SignUpPage extends Component {
             //onChange={}
             name="username"
             type="username"
-            label="Username"
+            label="Nome de Usuário"
             value={username}
           />
 
@@ -74,7 +91,7 @@ class SignUpPage extends Component {
             //onChange={}
             name="password"
             type="password"
-            label="Password"
+            label="Senha"
             value={password}
           />
           {/* Botão que retorna pra página de login por enquanto*/}

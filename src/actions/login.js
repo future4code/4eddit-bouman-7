@@ -9,6 +9,7 @@ export const login = (email, password) => async (dispatch) => {
         email: email,
         password: password
     }
+    
 
     try {
         const response = await axios.post(`${baseURL}/login`, loginInfo)

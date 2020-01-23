@@ -4,19 +4,15 @@ import { routes } from "../Router";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { getPosts } from "../../actions/getPosts";
-import PostCard from "../FeedPage/PostCard";
-import { routes } from "../Router";
 import { push } from "connected-react-router";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import { push } from "connected-react-router";
+import NewPostCard from "../FeedPage/NewPostCard"
 
 
 const PostsContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 60%;
+    width: 50%;
     padding: 30px;
     margin: 0 auto;
 
@@ -36,6 +32,7 @@ class FeedPage extends Component {
   render() {
     return (
       <PostsContainer>
+          <NewPostCard></NewPostCard>
           {this.props.allPosts.map(post => (<PostCard post={post} />))}
       </PostsContainer>
     );
@@ -53,11 +50,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);
-function mapDispatchToProps(dispatch) {
-  return {
-    GoToLogin: () => dispatch(push(routes.root))
-  }
-}
 
-
-export default connect(null, mapDispatchToProps)(FeedPage);

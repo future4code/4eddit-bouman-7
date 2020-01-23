@@ -13,7 +13,7 @@ export const login = (email, password) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseURL}/login`, loginInfo)
 
-        window.localStorage.setItem("token", response.data.token);
+        window.localStorage.getItem("token", response.data.token);
 
         dispatch(push("/feed"))
 

@@ -4,8 +4,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ArrowUpward from "@material-ui/icons/ArrowUpward"
-import ArrowDownward from "@material-ui/icons/ArrowDownward"
+import ArrowUpward from "@material-ui/icons/ArrowUpward";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Button from "@material-ui/core/Button";
 import { connect } from "react-redux"
 import styled from "styled-components"
 
@@ -49,6 +50,9 @@ class PostCard extends React.Component {
           <Typography component="p" color="primary">
           {this.props.post.commentsNumber} comentário(s)
           </Typography>
+          
+          {/* Botão que leva o usuário à página com detalhes do post */}
+          <Button>Ver detalhes</Button>
         
         </CardActions>  
       </Card>

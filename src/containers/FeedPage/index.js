@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import PostCard from "../FeedPage/PostCard"
-import Routes from "connected-react-router"
-import { connect } from "react-redux"
-import styled from "styled-components"
+import PostCard from "../FeedPage/PostCard";
+import { routes } from "../Router";
+import { connect } from "react-redux";
+import styled from "styled-components";
 import { getPosts } from "../../actions/getPosts";
 import PostCard from "../FeedPage/PostCard";
 import { routes } from "../Router";

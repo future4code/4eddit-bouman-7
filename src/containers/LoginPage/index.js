@@ -7,9 +7,18 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SignUpButton from "@material-ui/core/Button";
 import styled from "styled-components";
+import logo from "../../images/4eddit.png";
+
+const MainContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const LoginForm = styled.form`
-width: 100%;
+width: 250px;
 height: 100vh;
 gap: 10px;
 place-content: center;
@@ -20,6 +29,9 @@ const Title = styled.h1 `
 width: 100%;
 height: 5vh;
 justify-content: center;
+`
+const Logo = styled.img `
+width: 220px;
 `
 
 class LoginPage extends Component {
@@ -47,8 +59,12 @@ class LoginPage extends Component {
     const { email, password } = this.state
 
     return (
+    <MainContainer>
+
+      <Logo src={logo} alt="4eddit - logo" />
+
       <LoginForm>
-        <Title>4eddit - Home</Title>
+
         <TextField
         onChange={this.handleFieldChange}
         name="email"
@@ -67,6 +83,7 @@ class LoginPage extends Component {
         <Button onClick={this.handleLoginButton}>Login</Button>
         <SignUpButton onClick={this.props.GoToSignUp}>Cadastrar</SignUpButton>
       </LoginForm>
+    </MainContainer>
       
     );
   }

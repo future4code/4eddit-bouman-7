@@ -12,6 +12,8 @@ const postsReducer = (state = initialState, action) => {
                 return {...state, clickedPostId: action.payload.postId}
         case "SET_POST_DETAILS":
                 return {...state, selectedPost: action.payload.details}
+        case "SET_COMMENT_ACTION":
+                return {...state, comments: action.payload.comments}
         default:
             return state;
     }

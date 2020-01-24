@@ -13,6 +13,9 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import {getPostDetail, createComment, voteComment} from "../../actions/getPosts";
+import Button from "@material-ui/core/Button";
+
 
 //Container para fundo da página
 const Post = styled.div`
@@ -47,7 +50,21 @@ const PostCardContainer = styled.div`
   margin: 10px;
 `
 
+const createCommentForm = [{
+  name: "text",
+  type: "text",
+  label: "Comentário",
+  required: true
+
+}]
+
 class PostPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      form: {}
+    }
+  }
 
     componentDidMount() {
         const token = window.localStorage.getItem("token")
@@ -55,14 +72,35 @@ class PostPage extends Component {
         if (token === null) {
             this.props.GoToLogin()
         }
+        else if (this.props.postDetailsId !== "") {
+          this.props.getPostDetail (this.props.postDetailsId)
+        }
+        else {
+          this.props.GoToFeed()
+        }
     }
 
-    componentDidiMount(dispatch){
-        this.props.searchPost()
+    handleInputOnChange = (event) => {
+      const {name, value} = event.target;
+      
+      this.setState ({form:{...this.state.form, [name]:value}})
+
+    }
+
+    handleCreateComment = (event) => {
+      event.preventDefault();
+
+      const { text } = this.state.form
+      const { postDetailsId } = this.props
+
+      this.props.createComment(text, postDetailsId)
+      this.setState({form:{}})
     }
 
   render() {
-    const {posts} = this.props;
+
+    const { postDetails } = this.props
+
     return (
       <Post>
           <Header>
@@ -73,27 +111,34 @@ class PostPage extends Component {
             
               <Card>
                   <CardContent>
-                  {this.props.postDetails.comments && this.props.postDetails.comments.map((comment) => 
+
+                  <form>
+                    {createCommentForm.map (input => (
+                        <div key={input.name}>
+                            <label htmlFor = {input.name}>{input.label}</label>
+                            <input
+                                id = {input.id}
+                                name = {input.name}
+                                type = {input.type}
+                                label = {input.label}
+                                value = {this.state.form[input.name] || ""}
+                                required = {input.required}
+                                onChange = {this.handleInputOnChange}
+                                pattern = {input.pattern}
+                            />
+                        </div>
+                    ))}
+                    <Button onClick = {this.handleCreateComment}> Enviar</Button>
+                   </form> 
+
+                  {postDetails.comments && postDetails.comments.map((comment) => 
                     <div>
                       <p>{comment.username}</p>
                       <p>{comment.text}</p>
                     </div>
                   )}
                     
-                    <Typography variant="h5" >
-                        {/* {this.props.post.title} */}
-                    </Typography>
                     
-                    <Typography variant="h6" color="secondary">
-                        {/* {this.props.post.username} */}
-                    </Typography>
-                    
-                    <hr/>
-                    
-                    <Typography component="p">
-                        {/* {this.props.post.text} */}
-                    </Typography>
-                  
                   </CardContent>
 
                   <CardActions>
@@ -124,12 +169,17 @@ class PostPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  postDetails: state.postsReducer.selectedPost
+  postDetails: state.postsReducer.selectedPost,
+  postDetailsId: state.postsReducer.clickedPostId
 })
 
 function mapDispatchToProps(dispatch) {
     return {
-        GoToLogin: () => dispatch(push(routes.root))
+        GoToLogin: () => dispatch(push(routes.root)),
+        GoToFeed: () => dispatch(push(routes.feedPage)),
+        getPostDetail: (postId) => dispatch(getPostDetail(postId)),
+        createComment: (text, postId) => dispatch(createComment(text, postId)),
+        voteComment: (postId, commentId, direction) => dispatch(voteComment(postId, commentId, direction))
     }
 }
 

@@ -18,7 +18,7 @@ export const setPostDetails = (details) => ({
     }
 })
 
-const getPosts = () => async (dispatch) => {
+ const getPosts = () => async (dispatch) => {
     try {
         const token = window.localStorage.getItem("token")
         const config = {
@@ -37,7 +37,7 @@ const getPosts = () => async (dispatch) => {
     }
 }
 
-const getPostDetail = (postId) => async (dispatch) => {
+export const getPostDetail = (postId) => async (dispatch) => {
     const token = window.localStorage.getItem("token")
     const config = {
         headers: {
@@ -53,6 +53,80 @@ const getPostDetail = (postId) => async (dispatch) => {
         console.log(error)
         window.alert("Ocorreu um erro.")
     }
+}
+
+export const setCommentIdAction = (commentId) => ({
+    type: "SET_COMMENT_ACTION",
+    payload: {
+        commentId
+    }
+})
+
+export const createComment = (text, postId) => async (dispatch) => {
+
+    const newComment = {
+        text, 
+    }
+
+    const token = window.localStorage.getItem("token")
+
+    const config = {
+        headers: {
+          auth: token
+        }
+      }
+
+    try {
+        await axios.post (`${baseURL}/posts/${postId}/comment`, newComment, config)
+        window.alert("Comentário Enviado")
+        dispatch(getPostDetail(postId)) 
+    } catch (error) {
+        window.alert("Falha ao enviar comentário")
+    }
+}
+
+export const voteComment = (postId, commentId, direction, userVoteDirection) => async (dispatch) => {
+    const token = window.localStorage.getItem("token")
+
+    const config = {
+        headers: {
+          auth: token
+        }
+      }
+
+      if (userVoteDirection === direction) {
+        
+        const upVote = {
+            direction: 0
+        }
+        
+        try {
+            await axios.put(`${baseURL}/posts/${postId}/comment/${commentId}/vote`, upVote, config)
+            dispatch(getPostDetail())
+          } 
+          
+          catch (error){
+            console.log(error)
+            window.alert("Ocorreu um erro.")
+          }
+
+
+      } else {
+        const downVote = {
+            direction: direction
+        }
+        
+        try {
+            await axios.put(`${baseURL}/posts/${postId}/comment/${commentId}/vote`, downVote, config)
+            dispatch(getPostDetail())
+          } 
+          
+          catch (error){
+            console.log(error)
+            window.alert("Ocorreu um erro.")
+          }
+      }
+
 }
 
 export default getPosts;

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import  getPosts  from "../../actions/getPosts";
 import { push } from "connected-react-router";
 import NewPostCard from "../FeedPage/NewPostCard"
+import Button from "@material-ui/core/Button"
 
 
 const PostsContainer = styled.div`
@@ -29,11 +30,17 @@ class FeedPage extends Component {
     }
   }
 
+  handleLogout = () => {
+    localStorage.removeItem("token")
+    this.props.GoToLogin()
+  }
+
   render() {
     return (
       <PostsContainer>
           <NewPostCard></NewPostCard>
           {this.props.allPosts.map(post => (<PostCard post={post} key={post.id}/>))}
+          <Button onClick={this.handleLogout}>Logout</Button>
       </PostsContainer>
     );
   }

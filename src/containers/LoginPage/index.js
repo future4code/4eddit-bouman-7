@@ -49,7 +49,8 @@ class LoginPage extends Component {
     });
   };
 
-  handleLoginButton = () => {
+  handleLoginButton = (event) => {
+    event.preventDefault()
     const { email, password } = this.state;
 
     this.props.login(email, password)
@@ -63,7 +64,7 @@ class LoginPage extends Component {
 
       <Logo src={logo} alt="4eddit - logo" />
 
-      <LoginForm>
+      <LoginForm onSubmit={this.handleLoginButton}>
 
         <TextField
         onChange={this.handleFieldChange}
@@ -80,7 +81,7 @@ class LoginPage extends Component {
         label="Senha"
         value={password}
         />
-        <Button onClick={this.handleLoginButton}>Login</Button>
+        <Button type="submit">Login</Button>
         <SignUpButton onClick={this.props.GoToSignUp}>Cadastrar</SignUpButton>
       </LoginForm>
     </MainContainer>

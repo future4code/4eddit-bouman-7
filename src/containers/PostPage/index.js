@@ -70,8 +70,15 @@ class PostPage extends Component {
             <LogoText src={logoText} alt="4eddit - logoText" />
           </Header>
           <PostCardContainer>
+            
               <Card>
                   <CardContent>
+                  {this.props.postDetails.comments && this.props.postDetails.comments.map((comment) => 
+                    <div>
+                      <p>{comment.username}</p>
+                      <p>{comment.text}</p>
+                    </div>
+                  )}
                     
                     <Typography variant="h5" >
                         {/* {this.props.post.title} */}
@@ -116,10 +123,14 @@ class PostPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  postDetails: state.postsReducer.selectedPost
+})
+
 function mapDispatchToProps(dispatch) {
     return {
         GoToLogin: () => dispatch(push(routes.root))
     }
 }
 
-export default connect(null, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

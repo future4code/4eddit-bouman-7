@@ -10,7 +10,7 @@ export const setPosts = (posts) => ({
     }  
 })
 
-export const getPosts = () => async (dispatch) => {
+const getPosts = () => async (dispatch) => {
     try {
         const token = window.localStorage.getItem("token")
         const config = {
@@ -20,7 +20,7 @@ export const getPosts = () => async (dispatch) => {
         }
         const response = await axios.get(`${baseURL}/posts`, config)
     
-        console.log(response.data.posts)
+        // console.log(response.data.posts)
         dispatch(setPosts(response.data.posts))
         
     } catch(error) {
@@ -28,3 +28,5 @@ export const getPosts = () => async (dispatch) => {
         window.alert("Não foi possível carregar o feed")
     }
 }
+
+export default getPosts;

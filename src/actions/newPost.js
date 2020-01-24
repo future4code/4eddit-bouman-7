@@ -1,4 +1,6 @@
 import axios from "axios";
+import  fetchPosts  from "./getPosts"
+
 
 const baseURL = "https://us-central1-missao-newton.cloudfunctions.net/fourEddit"
 
@@ -21,6 +23,8 @@ export const newPost = (title, text) => async (dispatch) => {
         const response = await axios.post(`${baseURL}/posts`, newPostInfo, config)
         console.log(response)
         dispatch(fetchPosts())
+        window.alert("Post enviado com sucesso!")
+
 
     } catch (error) {
         console.log(error)

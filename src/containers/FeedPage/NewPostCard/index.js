@@ -8,6 +8,7 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { newPost } from "../../../actions/newPost"
 
 const InputContainer = styled.div`
   display: flex;
@@ -31,6 +32,15 @@ class NewPostCard extends React.Component {
         });
       };
 
+    handleClickSendPost = (title, text) => {
+        this.props.createNewPost(title, text)
+        this.setState({
+            title: "",
+            text: ""
+        })
+    }
+
+
 
     render () {
 
@@ -51,6 +61,7 @@ class NewPostCard extends React.Component {
                         placeholder="Insira seu título aqui" 
                         fullWidth 
                         value={title}
+                        onChange={this.handleFieldChange}
                         />
                         <br/> <br />
                         <TextField 
@@ -60,9 +71,10 @@ class NewPostCard extends React.Component {
                         placeholder="Insira seu conteúdo aqui" 
                         fullWidth multiline rows='2'
                         value={text}
+                        onChange={this.handleFieldChange}
                         />
                         <br /><br />
-                        <Button>Publicar post</Button>
+                        <Button onClick={() => this.handleClickSendPost(title, text)}>Publicar post</Button>
                     </InputContainer>
                 </CardContent>
             </Card>
@@ -70,4 +82,9 @@ class NewPostCard extends React.Component {
     }
 }
 
-export default NewPostCard;
+const mapDispatchToProps = dispatch => ({
+    createNewPost: (title, text) => dispatch(newPost(title, text))
+})
+
+
+export default connect(null, mapDispatchToProps)(NewPostCard);

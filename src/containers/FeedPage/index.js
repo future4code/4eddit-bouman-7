@@ -3,7 +3,7 @@ import PostCard from "../FeedPage/PostCard";
 import { routes } from "../Router";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getPosts } from "../../actions/getPosts";
+import  getPosts  from "../../actions/getPosts";
 import { push } from "connected-react-router";
 import NewPostCard from "../FeedPage/NewPostCard"
 
@@ -33,7 +33,7 @@ class FeedPage extends Component {
     return (
       <PostsContainer>
           <NewPostCard></NewPostCard>
-          {this.props.allPosts.map(post => (<PostCard post={post} />))}
+          {this.props.allPosts.map(post => (<PostCard post={post} key={post.id}/>))}
       </PostsContainer>
     );
   }

@@ -17,7 +17,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseURL}/signup`, signUpInfo)
 
-        window.localStorage.getItem("token", response.data.token);
+        window.localStorage.setItem("token", response.data.token);
 
         dispatch(push(routes.feedPage))
 

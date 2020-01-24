@@ -9,6 +9,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux"
 import styled from "styled-components"
+import { setPostId } from "../../../actions/votePosts"
 
 
 const PostCardContainer = styled.div`
@@ -17,8 +18,17 @@ const PostCardContainer = styled.div`
 
 
 class PostCard extends React.Component {
+  
+  constructor(props) {
+    super(props);
+  }
 
-  render() {
+  handleVoteClick = (postId) => {
+   this.props.clickedPostId(this.props.post.post.id) 
+  }
+
+
+  render () {
 
     return (
         <PostCardContainer>
@@ -37,14 +47,13 @@ class PostCard extends React.Component {
         </CardContent>
 
         <CardActions>
-          {/* <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : "secondary"}> */}
-          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection === 1 ? "primary" : "secondary"}>
+          <IconButton aria-label="Upvote" color={this.props.post.userVoteDirection > 0 ? "primary" : " "} onClick={() => this.handleVoteClick(this.props.post.post.id)}>
             <ArrowUpward />
           </IconButton>
           <IconButton disabled>
             {this.props.post.votesCount}
           </IconButton>
-          <IconButton aria-label="Downvote">
+          <IconButton aria-label="Downvote" color={this.props.post.userVoteDirection < 0 ? "primary" : " "}>
             <ArrowDownward />
           </IconButton>
           <Typography component="p" color="primary">
@@ -61,5 +70,8 @@ class PostCard extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  clickedPostId: (postId) => dispatch(setPostId(postId))
+})
 
-export default connect()(PostCard);
+export default connect(null, mapDispatchToProps)(PostCard);
